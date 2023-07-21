@@ -1,0 +1,10 @@
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Core\bin\Debug\SmallDAS.Core.dll
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Core\bin\Debug\SmallDAS.Core.pdb
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Core\obj\Debug\SmallDAS.Core.dll
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Core\obj\Debug\SmallDAS.Core.pdb
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Core\bin\Debug\Ivi.Visa.dll
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Core\bin\Debug\Ivi.Visa.xml
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Core\obj\Debug\SmallDAS.Core.csproj.CopyComplete
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Core\bin\Debug\NCalc.dll
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Core\obj\Debug\SmallDAS.Core.csproj.CoreCompileInputs.cache
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Core\obj\Debug\SmallDAS.Core.csprojAssemblyReference.cache

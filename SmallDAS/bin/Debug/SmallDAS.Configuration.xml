@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SmallDAS.Configuration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Devices>
+    <Device>
+      <Enabled>true</Enabled>
+      <Timeout>1000</Timeout>
+      <Protocol>Serial</Protocol>
+      <Name>Drone</Name>
+    </Device>
+    <Device>
+      <Enabled>true</Enabled>
+      <Timeout>1000</Timeout>
+      <Protocol>Serial</Protocol>
+      <Name>Ardruino</Name>
+    </Device>
+    <Device>
+      <Enabled>true</Enabled>
+      <Timeout>1000</Timeout>
+      <Protocol>VISA</Protocol>
+      <Name>SDS 1102CML+</Name>
+    </Device>
+    <Device>
+      <Enabled>false</Enabled>
+      <Timeout />
+      <Protocol>Serial</Protocol>
+      <Name />
+    </Device>
+  </Devices>
+</SmallDAS.Configuration>

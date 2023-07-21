@@ -1,0 +1,14 @@
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\bin\Debug\SmallDAS.Visa.dll
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\bin\Debug\SmallDAS.Visa.pdb
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\obj\Debug\SmallDAS.Visa.dll
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\obj\Debug\SmallDAS.Visa.pdb
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\bin\Debug\SmallDAS.Core.dll
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\bin\Debug\SmallDAS.Core.pdb
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\obj\Debug\SmallDAS.Visa.csproj.CopyComplete
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\bin\Debug\Ivi.Visa.dll
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\bin\Debug\NationalInstruments.Visa.dll
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\bin\Debug\Ivi.Visa.xml
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\bin\Debug\NationalInstruments.Visa.xml
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\bin\Debug\NCalc.dll
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\obj\Debug\SmallDAS.Visa.csproj.CoreCompileInputs.cache
+C:\Users\hooke\source\repos\SmallDAS\SmallDAS.Visa\obj\Debug\SmallDAS.Visa.csprojAssemblyReference.cache
