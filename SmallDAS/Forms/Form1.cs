@@ -11,12 +11,13 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Xml;
 using OxyPlot.WindowsForms;
+using SmallDAS.Services;
+using System.Runtime.Remoting.Channels;
 
 namespace SmallDAS
 {
     public partial class Form1 : Form
     {
-        private SerialPort _serialPort = new SerialPort("COM6");
         private LineSeries lineSeries;
         private ScatterSeries scatterSeriesXY;
         private ScatterSeries scatterSeriesXZ;
@@ -25,7 +26,6 @@ namespace SmallDAS
         private List<Device> deviceList = new List<Device>();
         private List<double> filterData = new List<double>();
         private Configuration _config = new Configuration();
-        private Visa.VisaDevice visa = new Visa.VisaDevice();
 
         public Form1()
         {
@@ -36,22 +36,74 @@ namespace SmallDAS
 
         private void LoadDevices()
         {
+            foreach (var device in _config.Devices) {
+                IProtocol protocol = null;
+                ICommunication communication = null;
+                IDeviceSettings deviceSettings = null;
+
+                // Select communication
+                if (device.CommunicationType == "TCP")
+                {           
+                     communication = new TcpCommunication(device.Name, 8080);
+                }
+                else if (device.CommunicationType == "Visa")
+                {
+                    var visa = new VisaCommunication(device.Name, 8080);
+                    protocol = visa;
+                    communication = visa;
+                }
+                else if (device.CommunicationType == "SerialPort")
+                {
+                    var serialPortCommunication = new SerialPortCommunication();
+                    deviceSettings = new SerialPortDeviceSettings(serialPortCommunication);
+                    communication = serialPortCommunication;
+                }
+
+                // Select protocol
+                if (device.DeviceProtocol == "RawScpi")
+                {
+                     protocol = new RawScpiProtocol();
+                }
+
+                device.Initialize(protocol, communication, deviceSettings);
+            }
+        }
+
+        private void ConnectDevices()
+        {
             foreach (var device in _config.Devices)
             {
-                if (device.Protocol == "VISA")
+                if (device.Enabled)
                 {
-                    IProtocol protocol = new SCPIProtocol(device.Name, int.Parse(device.Timeout));
-                    device.Initialize(protocol);
+                    if (device.Connect() == true)
+                    {
+
+                    }
                 }
             }
         }
 
         private void LoadConfiguration()
         {
-            XmlSerializer ser = new XmlSerializer(typeof(Configuration));
-            using (XmlReader reader = XmlReader.Create("SmallDAS.Configuration.xml"))
+            try
             {
-                _config = (Configuration)ser.Deserialize(reader);
+                if (File.Exists("SmallDAS.Configuration.xml"))
+                {
+                    XmlSerializer ser = new XmlSerializer(typeof(Configuration));
+                    using (XmlReader reader = XmlReader.Create("SmallDAS.Configuration.xml"))
+                    {
+                        _config = (Configuration)ser.Deserialize(reader);
+                    }
+                }
+                else
+                {
+                    var fs = File.Create("SmallDAS.Configuration.xml");
+                    fs.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
@@ -63,48 +115,11 @@ namespace SmallDAS
             ViewSelector viewSelector = new ViewSelector();
             viewSelector.Dock = DockStyle.Fill;
             splitContainer3.Panel1.Controls.Add(viewSelector);
-
-            try
-            {
-                _serialPort.BaudRate = 9600;
-                _serialPort.Parity = Parity.None;
-                _serialPort.StopBits = StopBits.One;
-                _serialPort.DataBits = 8;
-                _serialPort.Handshake = Handshake.None;
-                _serialPort.RtsEnable = true;
-                _serialPort.ReceivedBytesThreshold = 8;
-                _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-                _serialPort.Open();
-
-                // Keep the connection alive
-                this.Invoke((Action) delegate
-                {
-                    try
-                    {
-                        if (!_serialPort.IsOpen)
-                        {
-                            _serialPort.Open();
-                            _serialPort.RtsEnable = true;
-                        }
-                    }
-                    catch (IOException ex)
-                    {
-                        Debug.WriteLine(ex.Message);
-                    }
-                });
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
         }
 
         private void ControlView1_CommandExecuted(object sender, ControlView.CommandExecutedEventArgs e)
         {
-            try
-            {
-                _serialPort.Write(String.Format("{0} {1}\r\n", e.Command, e.Value));
-            } catch (Exception ex){}
+
         }
 
         private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)

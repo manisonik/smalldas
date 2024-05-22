@@ -9,7 +9,7 @@ namespace SmallDAS
     class Recorder
     {
         private Timer timer = new Timer();
-        private List<Channel> channels = new List<Channel>();
+        private List<Core.Channel> channels = new List<Core.Channel>();
         private StreamWriter streamWriter;
         private string filepath = "";
 
@@ -26,7 +26,7 @@ namespace SmallDAS
             // Write the header
             string header = "";
             string units = "";
-            foreach (Channel chan in channels)
+            foreach (Core.Channel chan in channels)
             {
                 header += chan.Name + "\t";
                 units += chan.Units + "\t";
@@ -46,7 +46,7 @@ namespace SmallDAS
             streamWriter.Close();
         }
 
-        void AddChannel(Channel channel)
+        void AddChannel(Core.Channel channel)
         {
             channels.Add(channel);
         }

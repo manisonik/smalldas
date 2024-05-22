@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace SmallDAS
 {
-    public interface IProtocol
+    public interface ICommand
     {
-        void Process(string message);
+        string Name { get; set; }
+        string Format { get; set; }
     }
 }

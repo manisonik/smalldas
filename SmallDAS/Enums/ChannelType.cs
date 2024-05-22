@@ -5,8 +5,9 @@ using System.Text;
 
 namespace SmallDAS
 {
-    public interface IProtocol
+    public enum ChannelType
     {
-        void Process(string message);
+        Number,
+        Text
     }
 }

@@ -63,14 +63,62 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IChannel.cs" />
+    <Compile Include="Contracts\ICommand.cs" />
+    <Compile Include="Contracts\ICommunication.cs" />
+    <Compile Include="Contracts\IDeviceSettings.cs" />
+    <Compile Include="Contracts\IParser.cs" />
     <Compile Include="Contracts\IProtocol.cs" />
+    <Compile Include="Enums\ChannelType.cs" />
+    <Compile Include="Forms\SerialPortConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SerialPortConfigForm.Designer.cs">
+      <DependentUpon>SerialPortConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fragments\ChannelFragment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Fragments\ChannelFragment.Designer.cs">
+      <DependentUpon>ChannelFragment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fragments\CommandFragment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Fragments\CommandFragment.Designer.cs">
+      <DependentUpon>CommandFragment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fragments\ParserFragment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Fragments\ParserFragment.Designer.cs">
+      <DependentUpon>ParserFragment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Channel.cs" />
+    <Compile Include="Forms\RawScpiDeviceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RawScpiDeviceForm.Designer.cs">
+      <DependentUpon>RawScpiDeviceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChannelValue.cs" />
+    <Compile Include="Models\Command.cs" />
+    <Compile Include="Models\DictionaryPropertyDescriptor.cs" />
+    <Compile Include="Models\DictionaryPropertyGridAdapter.cs" />
+    <Compile Include="Models\DynamicTypeDescriptor.cs" />
+    <Compile Include="Models\Parser.cs" />
+    <Compile Include="Models\SerialPortDeviceSettings.cs" />
     <Compile Include="Models\UserColorTable.cs" />
     <Compile Include="Models\UserToolStripRenderer.cs" />
     <Compile Include="ResizeablePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Services\SCPIProtocol.cs" />
-    <Compile Include="Services\SerialProtocol.cs" />
+    <Compile Include="Services\RawScpiProtocol.cs" />
+    <Compile Include="Services\SerialCommunication.cs" />
+    <Compile Include="Services\TcpCommunication.cs" />
+    <Compile Include="Services\UdpCommunication.cs" />
+    <Compile Include="Services\SerialPortCommunication.cs" />
+    <Compile Include="Services\VisaCommunication.cs" />
     <Compile Include="ViewSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -140,6 +188,21 @@
     <Compile Include="Forms\WaveGen.Designer.cs">
       <DependentUpon>WaveGen.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\RawScpiDeviceForm.resx">
+      <DependentUpon>RawScpiDeviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SerialPortConfigForm.resx">
+      <DependentUpon>SerialPortConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fragments\ChannelFragment.resx">
+      <DependentUpon>ChannelFragment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fragments\CommandFragment.resx">
+      <DependentUpon>CommandFragment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fragments\ParserFragment.resx">
+      <DependentUpon>ParserFragment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewSelector.resx">
       <DependentUpon>ViewSelector.cs</DependentUpon>
     </EmbeddedResource>

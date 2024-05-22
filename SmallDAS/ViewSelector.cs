@@ -292,10 +292,19 @@ namespace SmallDAS
             dataGridView.Location = new Point(100, 100);
             dataGridView.ReadOnly = true;
             dataGridView.RowHeadersVisible = false;
+            dataGridView.EnableHeadersVisualStyles = false;
+            dataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridView.AdvancedColumnHeadersBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.Single;
+            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
+            dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView.RowsDefaultCellStyle.BackColor = Color.FromArgb(90, 90, 90);
             dataGridView.Columns.Add("Name", "Name");
             dataGridView.Columns.Add("Value", "Value");
             dataGridView.Columns.Add("Unit", "Unit");
             dataGridView.Columns["Unit"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dataGridView.Rows.Add("Voltage0", "100", "V");
             Controls.Add(dataGridView);
             Invalidate();
         }

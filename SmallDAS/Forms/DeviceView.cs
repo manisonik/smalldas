@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using SmallDAS.Core;
+using System;
+using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -7,6 +9,7 @@ namespace SmallDAS
     public partial class DeviceView : Form
     {
         private Configuration _config;
+        private Device _selectedDevice;
 
         public DeviceView(Configuration config)
         {
@@ -20,17 +23,23 @@ namespace SmallDAS
         {
             foreach (Device dev in _config.Devices)
             {
-                int i = dataGridView1.Rows.Add(dev.Enabled, dev.Name, dev.Protocol, dev.Timeout);
+                int i = dataGridView1.Rows.Add(dev.Enabled, dev.Name, dev.CommunicationType, dev.DeviceProtocol, dev.Timeout);
                 dataGridView1.Rows[i].Tag = dev;
             }
         }
 
         public void Save()
         {
-            XmlSerializer xs = new XmlSerializer(typeof(Configuration));
-            using (StreamWriter fs = System.IO.File.CreateText("SmallDAS.Configuration.xml"))
+            try
             {
-                xs.Serialize(fs, _config);
+                XmlSerializer xs = new XmlSerializer(typeof(Configuration));
+                using (StreamWriter fs = System.IO.File.CreateText("SmallDAS.Configuration.xml"))
+                {
+                    xs.Serialize(fs, _config);
+                }
+            }
+            catch (Exception e) 
+            {
             }
         }
 
@@ -41,6 +50,33 @@ namespace SmallDAS
 
         private void ShowChannelView(Device device)
         {
+            if (device == null)
+                return;
+
+            if (device.CommunicationType.Contains("RawScpi"))
+            {
+                var scpiForm = new RawScpiDeviceForm(device);
+                scpiForm.ShowDialog();
+            }
+            else if (device.CommunicationType.Contains("SerialPort"))
+            {
+                var scpiForm = new RawScpiDeviceForm(device);
+                scpiForm.ShowDialog();
+            }
+        }
+
+        private void ShowConfigView(Device device)
+        {
+            if (device == null)
+                return;
+
+            if (device.CommunicationType.Contains("SerialPort"))
+            {
+                var scpiForm = new SerialPortConfigForm(device);
+                if (scpiForm.ShowDialog() == DialogResult.OK) {
+                    device.Apply();
+                }
+            }
         }
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -48,7 +84,8 @@ namespace SmallDAS
             if (_config == null)
                 return;
 
-            switch (e.ColumnIndex) {
+            switch (e.ColumnIndex)
+            {
                 case 0:
                     _config.Devices[e.RowIndex].Enabled = bool.Parse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
                     break;
@@ -56,10 +93,13 @@ namespace SmallDAS
                     _config.Devices[e.RowIndex].Name = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                     break;
                 case 2:
-                    _config.Devices[e.RowIndex].Protocol = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    _config.Devices[e.RowIndex].CommunicationType = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
                     break;
                 case 3:
-                    _config.Devices[e.RowIndex].Timeout = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    _config.Devices[e.RowIndex].DeviceProtocol = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    break;
+                case 4:
+                    _config.Devices[e.RowIndex].Timeout = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
                     break;
                 default:
                     return;
@@ -73,6 +113,9 @@ namespace SmallDAS
 
         private void dataGridView1_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
+            if (e.Row.Tag == null)
+                return;
+
             _config.Devices.Remove((Device)e.Row.Tag);
         }
 
@@ -81,11 +124,19 @@ namespace SmallDAS
             switch (e.ColumnIndex)
             {
                 case 5:
+                    ShowConfigView((Device)dataGridView1.Rows[e.RowIndex].Tag);
+                    break;
+                case 6:
                     ShowChannelView((Device)dataGridView1.Rows[e.RowIndex].Tag);
                     break;
                 default:
                     return;
             }
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

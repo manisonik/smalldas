@@ -31,6 +31,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Use = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Communication = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Protocol = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Timeout = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Config = new System.Windows.Forms.DataGridViewImageColumn();
@@ -43,12 +44,13 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.Gray;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Use,
             this.DeviceName,
+            this.Communication,
             this.Protocol,
             this.Timeout,
             this.Config,
@@ -56,7 +58,7 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 24);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(696, 338);
+            this.dataGridView1.Size = new System.Drawing.Size(823, 338);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
@@ -77,16 +79,28 @@
             this.DeviceName.HeaderText = "Device Name";
             this.DeviceName.Name = "DeviceName";
             // 
+            // Communication
+            // 
+            this.Communication.Frozen = true;
+            this.Communication.HeaderText = "Communication";
+            this.Communication.Items.AddRange(new object[] {
+            "TCP",
+            "UDP",
+            "Serial",
+            "Visa",
+            "SerialPort"});
+            this.Communication.Name = "Communication";
+            this.Communication.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Communication.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // Protocol
             // 
             this.Protocol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Protocol.Frozen = true;
             this.Protocol.HeaderText = "Protocol";
             this.Protocol.Items.AddRange(new object[] {
-            "Serial",
-            "VISA",
-            "UDP",
-            "TCP"});
+            "AK",
+            "RawScpi"});
             this.Protocol.Name = "Protocol";
             // 
             // Timeout
@@ -97,13 +111,13 @@
             // 
             // Config
             // 
-            this.Config.HeaderText = "";
+            this.Config.HeaderText = "Config";
             this.Config.Name = "Config";
             this.Config.ReadOnly = true;
             // 
             // Column1
             // 
-            this.Column1.HeaderText = "";
+            this.Column1.HeaderText = "Channel Setup";
             this.Column1.Name = "Column1";
             // 
             // menuStrip1
@@ -113,9 +127,10 @@
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(696, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(823, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // toolStripMenuItem1
             // 
@@ -127,7 +142,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(696, 362);
+            this.ClientSize = new System.Drawing.Size(823, 362);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -149,6 +164,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Use;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Communication;
         private System.Windows.Forms.DataGridViewComboBoxColumn Protocol;
         private System.Windows.Forms.DataGridViewTextBoxColumn Timeout;
         private System.Windows.Forms.DataGridViewImageColumn Config;
